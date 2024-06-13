@@ -3,7 +3,7 @@ import { Box, Stack, Typography, Card, CardContent, Button, Avatar } from '@mui/
 
 const Organisme = () => {
   return (
-    <Box sx={{ flex: 1, width: '100%', padding: 4 }}>
+    <Box sx={{ flex: 1, width: '100%', padding: 4, backgroundColor: '#E0FFFF' }}>
       {/* En-tête */}
       <Box
         sx={{
@@ -19,7 +19,7 @@ const Organisme = () => {
       >
         <Box sx={{ flex: 1, textAlign: 'left' }}>
           <Typography level="h2" component="h1" sx={{ marginBottom: 1 }}>
-            Gestion des événements
+            Insersite
           </Typography>
           <Typography>
             Gérez vos événements avec facilité et efficacité. Ajoutez, modifiez ou supprimez des événements.
@@ -44,13 +44,13 @@ const Organisme = () => {
           </CardContent>
         </Card>
         <Avatar
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+          src="/insersite.jpg"
           alt="Profil"
           sx={{
-            width: 150,  // Augmenter la largeur
-            height: 150, // Augmenter la hauteur
+            width: 150,
+            height: 150,
             position: 'absolute',
-            bottom: -75, // Ajuster pour centrer l'avatar plus grand
+            bottom: -75,
             left: '50%',
             transform: 'translateX(-50%)',
             border: '2px solid white',
@@ -58,6 +58,18 @@ const Organisme = () => {
           }}
         />
       </Box>
+
+      {/* Card avec du texte */}
+      <Card sx={{ marginBottom: 4, marginTop: 4 }}> {/* Ajout de marginTop: 4 */}
+        <CardContent>
+          <Typography mt={3} sx={{ marginBottom: 2 }}>
+            Bienvenue dans la gestion des événements
+          </Typography>
+          <Typography>
+            Ici, vous pouvez gérer tous les événements liés à votre organisation. Ajoutez de nouveaux événements, modifiez les détails existants ou supprimez-les selon vos besoins.
+          </Typography>
+        </CardContent>
+      </Card>
 
       {/* Contenu principal */}
       <Stack spacing={4} sx={{ flexGrow: 1, justifyContent: 'flex-end' }}>
