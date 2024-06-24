@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Sidebar from '../components/Sidebar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import MemberCard from '../components/MemberCard'; // Assurez-vous que le chemin est correct
+import MemberCard from '../components/MemberCard';
 
 const ListeMembreEnAttente: React.FC = () => {
   const members = [
@@ -95,7 +95,7 @@ const ListeMembreEnAttente: React.FC = () => {
         <Grid container spacing={2} justifyContent="center">
           {members.map((member, index) => (
             <Grid item key={index}>
-              <MemberCard {...member} />
+              <MemberCard name={member.organization} organization={member.name} avatarUrl={member.avatarUrl} />
               <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1 }}>
                 <motion.div whileTap={buttonAnimation}>
                   <Button

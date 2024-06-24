@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { Box, Typography, Card, CardContent, Button, Avatar } from '@mui/joy';
-import Orders from '../components/Orders';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 
-// Composant pour afficher une carte de représentant
-const RepresentativeCard: React.FC<{ name: string; title: string; avatarUrl: string }> = ({ name, title, avatarUrl }) => (
+// Composant pour afficher une carte de membre
+const MemberCard: React.FC<{ name: string; title: string; avatarUrl: string }> = ({ name, title, avatarUrl }) => (
   <Card
     sx={{
-      width: 120,
-      padding: 1,
+      width: 200,
+      padding: 2,
       margin: 1,
       boxShadow: 3,
       borderRadius: 2,
@@ -26,21 +25,21 @@ const RepresentativeCard: React.FC<{ name: string; title: string; avatarUrl: str
       src={avatarUrl}
       alt={name}
       sx={{
-        width: 40,
-        height: 40,
+        width: 60,
+        height: 60,
         marginBottom: 1,
       }}
     />
     <Box sx={{ textAlign: 'center' }}>
-      <Typography component="h3" sx={{ fontWeight: 'bold', fontSize: '0.8rem' }}>
+      <Typography component="h3" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
         {name}
       </Typography>
-      <Typography sx={{ fontSize: '0.7rem' }}>{title}</Typography>
+      <Typography sx={{ fontSize: '0.9rem' }}>{title}</Typography>
     </Box>
   </Card>
 );
 
-const Organisme = () => {
+const ProfilMembre = () => {
   const handleBackClick = () => {
     window.history.back();
   };
@@ -84,10 +83,10 @@ const Organisme = () => {
 
         <Box sx={{ flex: 1, textAlign: 'left' }}>
           <Typography level="h2" component="h1" sx={{ marginBottom: 1 }}>
-            Insersite
+            Profil du Membre
           </Typography>
           <Typography>
-            Gérez vos événements avec facilité et efficacité. Ajoutez, modifiez ou supprimez des événements.
+            Détails et informations du membre. Gérez les informations du membre.
           </Typography>
         </Box>
         <Card
@@ -138,22 +137,14 @@ const Organisme = () => {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={3}></Grid>
-            {/* Recent Orders */}
+            {/* Member Profile */}
             <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders />
-              </Paper>
-            </Grid>
-            {/* Liste des représentants */}
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Typography gutterBottom>Liste des représentants</Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                  <RepresentativeCard name="Jean Dupont" title="Directeur Général" avatarUrl="/avatars/jean.jpg" />
-                  <RepresentativeCard name="Marie Curie" title="Responsable RH" avatarUrl="/avatars/marie.jpg" />
-                  <RepresentativeCard name="Albert Einstein" title="Chef de Projet" avatarUrl="/avatars/albert.jpg" />
-                  {/* Ajouter plus de cartes de représentants si nécessaire */}
-                </Box>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography gutterBottom>
+                  Détails du Membre
+                </Typography>
+                <MemberCard name="Jean Dupont" title="Directeur Général" avatarUrl="/avatars/jean.jpg" />
+                {/* Ajouter plus de détails sur le membre si nécessaire */}
               </Paper>
             </Grid>
           </Grid>
@@ -163,4 +154,4 @@ const Organisme = () => {
   );
 };
 
-export default Organisme;
+export default ProfilMembre;

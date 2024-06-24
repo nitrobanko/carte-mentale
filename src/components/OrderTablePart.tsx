@@ -37,7 +37,7 @@ import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 
 const rows = [
   {
-    id: 'INV-1234',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Attente',
     customer: {
@@ -47,7 +47,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1233',
+    current: '23',
     date: 'Feb 3, 2023',
     status: 'Validé',
     customer: {
@@ -57,7 +57,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1232',
+    current: '24',
     date: 'Feb 3, 2023',
     status: 'Attente',
     customer: {
@@ -67,7 +67,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1231',
+    current: '26',
     date: 'Feb 3, 2023',
     status: 'Attente',
     customer: {
@@ -77,7 +77,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1230',
+    current: '25',
     date: 'Feb 3, 2023',
     status: 'Refusé',
     customer: {
@@ -87,7 +87,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1229',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Refusé',
     customer: {
@@ -97,7 +97,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1228',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Attente',
     customer: {
@@ -107,7 +107,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1227',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Validé',
     customer: {
@@ -117,7 +117,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1226',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Refusé',
     customer: {
@@ -127,7 +127,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1225',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Validé',
     customer: {
@@ -137,7 +137,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1224',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Refusé',
     customer: {
@@ -147,7 +147,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1223',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Validé',
     customer: {
@@ -157,7 +157,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1221',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Attente',
     customer: {
@@ -167,7 +167,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1220',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Validé',
     customer: {
@@ -177,7 +177,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1219',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Refusé',
     customer: {
@@ -187,7 +187,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1218',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Cancelled',
     customer: {
@@ -197,7 +197,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1217',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Paid',
     customer: {
@@ -207,7 +207,7 @@ const rows = [
     },
   },
   {
-    id: 'INV-1216',
+    current: '21',
     date: 'Feb 3, 2023',
     status: 'Cancelled',
     customer: {
@@ -268,11 +268,10 @@ function RowMenu() {
         <MoreHorizRoundedIcon />
       </MenuButton>
       <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Edit</MenuItem>
-        <MenuItem>Rename</MenuItem>
-        <MenuItem>Move</MenuItem>
+        <MenuItem>Editer</MenuItem>
+        <MenuItem>Renommer</MenuItem>
         <Divider />
-        <MenuItem color="danger">Delete</MenuItem>
+        <MenuItem color="danger">Supprimer</MenuItem>
       </Menu>
     </Dropdown>
   );
@@ -285,16 +284,15 @@ export default function OrderTable() {
   const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">
-        <FormLabel>Status</FormLabel>
+        <FormLabel>Etat</FormLabel>
         <Select
           size="sm"
-          placeholder="Filter by status"
+          placeholder="Filtrer par l'état"
           slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
         >
-          <Option value="paid">Paid</Option>
-          <Option value="pending">Pending</Option>
-          <Option value="refunded">Refunded</Option>
-          <Option value="cancelled">Cancelled</Option>
+          <Option value="attente">Attente</Option>
+          <Option value="valide">Validé</Option>
+          <Option value="refuse">Refusé</Option>
         </Select>
       </FormControl>
       <FormControl size="sm">
@@ -307,9 +305,9 @@ export default function OrderTable() {
         </Select>
       </FormControl>
       <FormControl size="sm">
-        <FormLabel>Customer</FormLabel>
-        <Select size="sm" placeholder="All">
-          <Option value="all">All</Option>
+        <FormLabel>Membres</FormLabel>
+        <Select size="sm" placeholder="Tous">
+          <Option value="all">Tous</Option>
           <Option value="olivia">Olivia Rhye</Option>
           <Option value="steve">Steve Hampton</Option>
           <Option value="ciaran">Ciaran Murray</Option>
@@ -374,7 +372,7 @@ export default function OrderTable() {
         }}
       >
         <FormControl sx={{ flex: 1 }} size="sm">
-          <FormLabel>Search for order</FormLabel>
+          <FormLabel>Rechercher</FormLabel>
           <Input size="sm" placeholder="Search" startDecorator={<SearchIcon />} />
         </FormControl>
         {renderFilters()}
@@ -414,7 +412,7 @@ export default function OrderTable() {
                   checked={selected.length === rows.length}
                   onChange={(event) => {
                     setSelected(
-                      event.target.checked ? rows.map((row) => row.id) : [],
+                      event.target.checked ? rows.map((row) => row.current) : [],
                     );
                   }}
                   color={
@@ -441,28 +439,28 @@ export default function OrderTable() {
                     },
                   }}
                 >
-                  Organisme
+                  Nom des membres
                 </Link>
               </th>
               <th style={{ width: 140, padding: '12px 6px' }}>Date</th>
               <th style={{ width: 140, padding: '12px 6px' }}>Etat</th>
-              <th style={{ width: 240, padding: '12px 6px' }}>Créer par</th>
+              <th style={{ width: 240, padding: '12px 6px' }}>Organisation</th>
               <th style={{ width: 240, padding: '12px 6px' }}></th>
             </tr>
           </thead>
           <tbody>
-            {stableSort(rows, getComparator(order, 'id')).map((row) => (
-              <tr key={row.id}>
+            {stableSort(rows, getComparator(order, 'current')).map((row) => (
+              <tr key={row.current}>
                 <td style={{ textAlign: 'center', width: 120 }}>
                   <Checkbox
                     size="sm"
-                    checked={selected.includes(row.id)}
-                    color={selected.includes(row.id) ? 'primary' : undefined}
+                    checked={selected.includes(row.current)}
+                    color={selected.includes(row.current) ? 'primary' : undefined}
                     onChange={(event) => {
-                      setSelected((ids) =>
+                      setSelected((currents) =>
                         event.target.checked
-                          ? ids.concat(row.id)
-                          : ids.filter((itemId) => itemId !== row.id),
+                          ? currents.concat(row.current)
+                          : currents.filter((itemCurrent) => itemCurrent !== row.current),
                       );
                     }}
                     slotProps={{ checkbox: { sx: { textAlign: 'left' } } }}
@@ -470,7 +468,7 @@ export default function OrderTable() {
                   />
                 </td>
                 <td>
-                  <Typography level="body-xs">{row.id}</Typography>
+                  <Typography level="body-xs">{row.current}</Typography>
                 </td>
                 <td>
                   <Typography level="body-xs">{row.date}</Typography>

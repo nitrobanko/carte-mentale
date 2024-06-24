@@ -17,6 +17,12 @@ import GestionParticipant from './pages/GestionParticipants';
 import DetailParticipant from './pages/DetailParticipant';
 import ListeMembreEnAttente from './pages/ListeMembreEnAttente';
 import Organisme from "./pages/Organisme";
+import ProfilMembre from "./pages/ProfilMembre";
+import ListePrescripteur from "./pages/ListePrescripteur";
+import ModifPage from "./pages/ModifPage";
+import AdminPrescripteur from "./pages/AdminPrescripteur";
+import GestionTrad from "./pages/GestionTrad";
+import PageEvent from "./pages/PageEvent";
 
 function Copyright() {
   return (
@@ -45,6 +51,12 @@ function App() {
       <Route path="details" element={<DetailParticipant/>} />
       <Route path="membres-en-attente" element={<ListeMembreEnAttente />} />
       <Route path="organisme" element={<Organisme />} />
+      <Route path="profile" element={<ProfilMembre />} />
+      <Route path="list-prescri" element={<ListePrescripteur />} />
+      <Route path="ajout-admin" element={<AdminPrescripteur />} />
+      <Route path="modifier-pages" element={<ModifPage />} />
+      <Route path="trad" element={<GestionTrad />} />
+      <Route path="event" element={<PageEvent />} />
 
 
     </Routes>

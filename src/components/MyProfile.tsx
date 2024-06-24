@@ -5,13 +5,9 @@ import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
-import FormHelperText from '@mui/joy/FormHelperText';
 import Input from '@mui/joy/Input';
 import IconButton from '@mui/joy/IconButton';
-import Textarea from '@mui/joy/Textarea';
 import Stack from '@mui/joy/Stack';
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
@@ -21,22 +17,44 @@ import Link from '@mui/joy/Link';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
 import CardOverflow from '@mui/joy/CardOverflow';
+import Select from '@mui/joy/Select';
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
-import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 import DropZone from './DropZone';
-import FileUpload from './FileUpload';
 import CountrySelector from './CountrySelector';
-import EditorToolbar from './EditorToolbar';
 import VilleSelector from './VilleSelector';
 
 export default function MyProfile() {
+  const [hasOrganization, setHasOrganization] = React.useState(false);
+  const [wantsToSpecifyOrganization, setWantsToSpecifyOrganization] = React.useState(false);
+  const [savedMessage, setSavedMessage] = React.useState("");
+  const [organizationName, setOrganizationName] = React.useState("");
+
+  const handleSavePersonalInfo = () => {
+    const firstNameFilled = true;
+    const lastNameFilled = true;
+    const emailFilled = true;
+
+    if (firstNameFilled && lastNameFilled && emailFilled) {
+      setSavedMessage("Données sauvegardées");
+    } else {
+      setSavedMessage("Veuillez remplir tous les champs requis");
+    }
+  };
+
+  const handleSaveOrganizationInfo = () => {
+    if (organizationName) {
+      setSavedMessage("Données de l'organisme sauvegardées");
+    } else {
+      setSavedMessage("Veuillez remplir le nom de l'organisme");
+    }
+  };
+
   return (
     <Box sx={{ flex: 1, width: '100%' }}>
       <Box
@@ -45,8 +63,8 @@ export default function MyProfile() {
           top: { sm: -100, md: -110 },
           bgcolor: 'background.body',
           zIndex: 9995,
-          
-          
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          paddingBottom: 2,
         }}
       >
         <Box sx={{ px: { xs: 2, md: 6 } }}>
@@ -61,6 +79,7 @@ export default function MyProfile() {
               color="neutral"
               href="#some-link"
               aria-label="Home"
+              sx={{ display: 'flex', alignItems: 'center' }}
             >
               <HomeRoundedIcon />
             </Link>
@@ -70,7 +89,7 @@ export default function MyProfile() {
               href="#some-link"
               fontSize={12}
               fontWeight={500}
-              
+              sx={{ display: 'flex', alignItems: 'center' }}
             >
               Users
             </Link>
@@ -79,14 +98,16 @@ export default function MyProfile() {
             </Typography>
           </Breadcrumbs>
           <Typography level="h2" component="h1" sx={{ mt: 1, mb: 2 }}>
-              Ajouter un membre          </Typography>
+            Ajouter un membre
+          </Typography>
         </Box>
         <Tabs
           defaultValue={0}
           sx={{
             bgcolor: 'transparent',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
           }}
-          
         >
           <TabList
             tabFlex={1}
@@ -98,28 +119,30 @@ export default function MyProfile() {
                 fontWeight: '600',
                 flex: 'initial',
                 color: 'text.tertiary',
+                transition: 'color 0.3s',
                 [`&.${tabClasses.selected}`]: {
                   bgcolor: 'transparent',
                   color: 'text.primary',
                   '&::after': {
                     height: '2px',
                     bgcolor: 'primary.500',
+                    transition: 'all 0.3s',
                   },
                 },
               },
             }}
           >
-            <Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={0}>
-              Settings
+            <Tab sx={{ borderRadius: '6px 6px 0 0', transition: 'background-color 0.3s' }} indicatorInset value={0}>
+              Paramètres
             </Tab>
-            <Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={1}>
-              Team
+            <Tab sx={{ borderRadius: '6px 6px 0 0', transition: 'background-color 0.3s' }} indicatorInset value={1}>
+              Carte
             </Tab>
-            <Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={2}>
-              Plan
+            <Tab sx={{ borderRadius: '6px 6px 0 0', transition: 'background-color 0.3s' }} indicatorInset value={2}>
+              Events
             </Tab>
-            <Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={3}>
-              Billing
+            <Tab sx={{ borderRadius: '6px 6px 0 0', transition: 'background-color 0.3s' }} indicatorInset value={3}>
+              Connexion
             </Tab>
           </TabList>
         </Tabs>
@@ -189,14 +212,6 @@ export default function MyProfile() {
                 </FormControl>
               </Stack>
               <Stack direction="row" spacing={2}>
-                <FormControl>
-                  <FormLabel>Role</FormLabel>
-                  <Select size="sm" defaultValue="Financeurs">
-                     <Option value="Financeurs">Financeur</Option>
-                     <Option value="Préscripteur">Préscripteur</Option>
-                     <Option value="Admin">Administrateur</Option>
-                   </Select>    
-                </FormControl>
                 <FormControl sx={{ flexGrow: 1 }}>
                   <FormLabel>Email</FormLabel>
                   <Input
@@ -209,14 +224,6 @@ export default function MyProfile() {
                   />
                 </FormControl>
               </Stack>
-              <div>
-                <VilleSelector />
-              </div>
-              <div>
-                <FormControl sx={{ display: { sm: 'contents' } }}>
-                  
-                </FormControl>
-              </div>
             </Stack>
           </Stack>
           <Stack
@@ -248,8 +255,8 @@ export default function MyProfile() {
                     position: 'absolute',
                     zIndex: 2,
                     borderRadius: '50%',
-                    left: 85,
-                    top: 180,
+                    left: 32,
+                    top: 76,
                     boxShadow: 'sm',
                   }}
                 >
@@ -257,7 +264,7 @@ export default function MyProfile() {
                 </IconButton>
               </Stack>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Nom</FormLabel>
                 <FormControl
                   sx={{
                     display: {
@@ -267,14 +274,14 @@ export default function MyProfile() {
                     gap: 2,
                   }}
                 >
-                  <Input size="sm" placeholder="First name" />
-                  <Input size="sm" placeholder="Last name" />
+                  <Input size="sm" placeholder="Prénom" />
+                  <Input size="sm" placeholder="Nom" />
                 </FormControl>
               </Stack>
             </Stack>
             <FormControl>
-              <FormLabel>Role</FormLabel>
-              <Input size="sm" defaultValue="UI Developer" />
+              <FormLabel>Rôle</FormLabel>
+              <Input size="sm" defaultValue="Développeur UI" />
             </FormControl>
             <FormControl sx={{ flexGrow: 1 }}>
               <FormLabel>Email</FormLabel>
@@ -298,170 +305,176 @@ export default function MyProfile() {
                   startDecorator={<AccessTimeFilledRoundedIcon />}
                   defaultValue="1"
                 >
-                  <Option value="1">
-                    Indochina Time (Bangkok){' '}
-                    <Typography textColor="text.tertiary" ml={0.5}>
-                      — GMT+07:00
-                    </Typography>
-                  </Option>
-                  <Option value="2">
-                    Indochina Time (Ho Chi Minh City){' '}
-                    <Typography textColor="text.tertiary" ml={0.5}>
-                      — GMT+07:00
-                    </Typography>
-                  </Option>
+                  {/* Options to be added here */}
                 </Select>
               </FormControl>
             </div>
           </Stack>
           <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
             <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-              <Button size="sm" variant="outlined" color="neutral">
-                Cancel
-              </Button>
-              <Button size="sm" variant="solid">
-                Save
-              </Button>
-            </CardActions>
-          </CardOverflow>
-        </Card>
-        <Card>
-          <Box sx={{ mb: 1 }}>
-            <Typography level="title-md">Evénement</Typography>
-           
-            <Typography level="body-sm">
-              Ajoutez vos événements dans la partie ci dessous.
-            </Typography>
-          </Box>
-          <Divider />
-          <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
-                  }}
-                >
-                  <Input size="sm" placeholder="Nom de l'événement" />
-                </FormControl>
-          <Stack spacing={2} sx={{ my: 1 }}>
-            <Textarea
-              size="sm"
-              minRows={4}
-              sx={{ mt: 1.5 }}
-              defaultValue="Ecrivez ici..."
-            />
-            <FormHelperText sx={{ mt: 0.75, fontSize: 'xs' }}>
-              275 characters left
-            </FormHelperText>
-          </Stack>
-          <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
-            <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-              <Button size="sm" variant="outlined" color="neutral">
-                Cancel
-              </Button>
-              <Button size="sm" variant="solid">
-                Save
+              <Button
+                size="sm"
+                variant="outlined"
+                color="neutral"
+                onClick={handleSavePersonalInfo}
+              >
+                Sauvegarder
               </Button>
             </CardActions>
           </CardOverflow>
+          {savedMessage && (
+           <Typography  color="success" sx={{ mt: 2, textAlign: 'center' }}>
+           {savedMessage}
+         </Typography>
+          )}
         </Card>
-        <Card>
-          <Box sx={{ mb: 1 }}>
-            <Typography level="title-md">Organisme</Typography>
-            <Typography level="body-sm">
-              Ajoutez l'organisme dans notre base de données.
-            </Typography>
-          </Box>
-          <Divider />
-          <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
+
+        {!hasOrganization && (
+          <Card>
+            <Box sx={{ mb: 1 }}>
+              <Typography level="title-md">Voulez-vous créer un organisme ?</Typography>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  size="sm"
+                  variant="outlined"
+                  onClick={() => {
+                    setHasOrganization(true);
+                    setWantsToSpecifyOrganization(false);
                   }}
                 >
-                  <Input size="sm" placeholder="Nom de l'organisme" />
-                </FormControl> <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
+                  Oui
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outlined"
+                  onClick={() => {
+                    setHasOrganization(false);
+                    setWantsToSpecifyOrganization(true);
                   }}
                 >
-                  <Input size="sm" placeholder="Siret" />
-                </FormControl> <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
-                  }}
+                  Non
+                </Button>
+              </Stack>
+            </Box>
+          </Card>
+        )}
+
+        {wantsToSpecifyOrganization && !hasOrganization && (
+          <Card>
+            <Box sx={{ mb: 1 }}>
+              <Typography level="title-md">Précisez votre organisme</Typography>
+              <FormControl sx={{ my: 2 }}>
+                <FormLabel>Nom de l'organisme</FormLabel>
+                <Input
+                  size="sm"
+                  placeholder="Nom de l'organisme"
+                  value={organizationName}
+                  onChange={(e) => setOrganizationName(e.target.value)}
+                />
+              </FormControl>
+              <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
+                <Button
+                  size="sm"
+                  variant="solid"
+                  onClick={handleSaveOrganizationInfo}
                 >
-                  <Input size="sm" placeholder="Adresse" />
-                </FormControl> <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
-                  }}
-                >
-                  <Input size="sm" placeholder="Ville" />
-                </FormControl>
-          <Stack spacing={2} sx={{ my: 1 }}> <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
-                  }}
-                >
-                  <Input size="sm" placeholder="Code postal" />
-                </FormControl> <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
-                  }}
-                >
-                  <Input size="sm" placeholder="Région" />
-                </FormControl> <FormControl
-                  sx={{
-                    display: {
-                      sm: 'flex-column',
-                      md: 'flex-row',
-                    },
-                    gap: 2,
-                  }}
-                >
-                  <Input size="sm" placeholder="Pays" />
-                </FormControl>
-            <DropZone />
-            
-           
-          </Stack>
-          <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
-            <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-              <Button size="sm" variant="outlined" color="neutral">
-                Cancel
-              </Button>
-              <Button size="sm" variant="solid">
-                Save
-              </Button>
-            </CardActions>
-          </CardOverflow>
-        </Card>
+                  Sauvegarder
+                </Button>
+              </CardActions>
+            </Box>
+          </Card>
+        )}
+
+        {hasOrganization && (
+          <Card className="organisme-section">
+            <Box sx={{ mb: 1 }}>
+              <Typography level="title-md">Organisme</Typography>
+              <Typography level="body-sm">
+                Ajoutez l'organisme dans notre base de données.
+              </Typography>
+            </Box>
+            <Divider />
+            <FormControl
+              sx={{
+                display: {
+                  sm: 'flex-column',
+                  md: 'flex-row',
+                },
+                gap: 2,
+              }}
+            >
+              <FormLabel>Nom de l'organisme</FormLabel>
+              <Input size="sm" placeholder="Nom de l'organisme" />
+            </FormControl>
+            <FormControl
+              sx={{
+                display: {
+                  sm: 'flex-column',
+                  md: 'flex-row',
+                },
+                gap: 2,
+              }}
+            >
+              <FormLabel>Siret</FormLabel>
+              <Input size="sm" placeholder="Siret" />
+            </FormControl>
+            <FormControl
+              sx={{
+                display: {
+                  sm: 'flex-column',
+                  md: 'flex-row',
+                },
+                gap: 2,
+              }}
+            >
+              <FormLabel>Adresse</FormLabel>
+              <Input size="sm" placeholder="Adresse" />
+            </FormControl>
+            <Stack spacing={2} sx={{ my: 1 }}>
+              <FormControl
+                sx={{
+                  display: {
+                    sm: 'flex-column',
+                    md: 'flex-row',
+                  },
+                  gap: 2,
+                }}
+              >
+                <FormLabel>Code postal</FormLabel>
+                <Input size="sm" placeholder="Code postal" />
+              </FormControl>
+              <FormControl
+                sx={{
+                  display: {
+                    sm: 'flex-column',
+                    md: 'flex-row',
+                  },
+                  gap: 2,
+                }}
+              >
+                <FormLabel>Région</FormLabel>
+                <Input size="sm" placeholder="Région" />
+              </FormControl>
+              <FormControl>
+                <CountrySelector />
+              </FormControl>
+              <FormControl>
+                <VilleSelector />
+              </FormControl>
+              <DropZone />
+            </Stack>
+            <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
+              <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
+                <Button size="sm" variant="outlined" color="neutral">
+                  Annuler
+                </Button>
+                <Button size="sm" variant="solid">
+                  Sauvegarder
+                </Button>
+              </CardActions>
+            </CardOverflow>
+          </Card>
+        )}
       </Stack>
     </Box>
   );

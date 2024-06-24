@@ -70,7 +70,7 @@ export default function JoyOrderDashboardTemplate() {
                 Dashboard
               </Link>
               <Typography color="primary" fontWeight={500} fontSize={12}>
-                cipants
+                Participants
               </Typography>
             </Breadcrumbs>
           </Box>

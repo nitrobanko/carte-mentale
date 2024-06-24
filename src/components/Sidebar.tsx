@@ -152,7 +152,7 @@ export default function Sidebar() {
             <ListItemButton>
               <DashboardRoundedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Dashboard</Typography>
+                <Typography level="title-sm" component={RouterLink} to="/dashboard">Dashboard</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
@@ -175,10 +175,10 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton className="hover:text-[#D70B52]" href="/">Modifier les pages</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/modifier-pages"  >Modifier les pages</ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton className="hover:text-[#D70B52]" href="/">Gestion des traductions</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/trad" >Gestion des traductions</ListItemButton>
                 </ListItem>
               </List>
             </Toggler>
@@ -200,10 +200,10 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton href='gestion-event'>Liste des événements</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/gestion-event">Liste des événements</ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Evénements archivés</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/list-event">Evénements archivés</ListItemButton>
                 </ListItem>
                 <ListItem>
                   <ListItemButton>Ajouter un événement</ListItemButton>
@@ -236,7 +236,7 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Liste des membres</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/participants">Liste des membres</ListItemButton>
                 </ListItem>
                 <ListItem>
                   <ListItemButton>Liste des organismes</ListItemButton>
@@ -248,7 +248,7 @@ export default function Sidebar() {
                   <ListItemButton>Ajouter un organisme</ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Validation(25)</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/membres-en-attente">Validation(25)</ListItemButton>
                 </ListItem>
               </List>
             </Toggler>
@@ -270,10 +270,10 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Liste</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/list-prescri">Liste</ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Ajouter</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/ajout-admin">Ajouter</ListItemButton>
                 </ListItem>
                 <ListItem>
                   <ListItemButton>Statistiques</ListItemButton>
@@ -302,7 +302,7 @@ export default function Sidebar() {
                   <ListItemButton>Liste</ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Ajouter</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/ajout-admin">Ajouter</ListItemButton>
                 </ListItem>
                 <ListItem>
                   <ListItemButton>Media uploader</ListItemButton>

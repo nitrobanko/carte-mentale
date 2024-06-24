@@ -12,7 +12,7 @@ export default function ContrySelector(props: FormControlProps) {
   const { sx, ...other } = props;
   return (
     <FormControl {...other} sx={sx}>
-      <FormLabel>Country</FormLabel>
+      <FormLabel>Pays</FormLabel>
       <Autocomplete
         autoHighlight
         isOptionEqualToValue={(option, value) => option.code === value.code}

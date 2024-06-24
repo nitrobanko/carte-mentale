@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
@@ -27,6 +26,7 @@ export default function JoyOrderDashboardTemplate() {
             height: '100dvh',
             gap: 1,
             overflow: 'auto',
+            backgroundImage: 'linear-gradient(to right, #0070f3, #009999, #00bcd4)',  // Ajout de la couleur de fond bleu cyan
           }}
         >
           <MyProfile />
