@@ -17,6 +17,7 @@ import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
+import { Link as RouterLink } from 'react-router-dom';
 import Checkbox from '@mui/joy/Checkbox';
 import IconButton, { iconButtonClasses } from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
@@ -217,7 +218,6 @@ const rows = [
     },
   },
 ];
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -242,10 +242,6 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
@@ -278,10 +274,18 @@ function RowMenu() {
   );
 }
 
-export default function OrderTable() {
+type OrderTableProps = {
+  filterPending?: boolean;
+};
+
+export default function OrderTable({ filterPending }: OrderTableProps) {
   const [order, setOrder] = React.useState<Order>('desc');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [open, setOpen] = React.useState(false);
+
+  // Filter events with "Pending" status if filterPending is true
+  const filteredRows = filterPending ? rows.filter(row => row.status !== 'Attente') : rows;
+
   const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">
@@ -320,8 +324,10 @@ export default function OrderTable() {
       </FormControl>
     </React.Fragment>
   );
+
   return (
     <React.Fragment>
+      {/* Mobile Search and Filters */}
       <Sheet
         className="SearchAndFilters-mobile"
         sx={{
@@ -360,6 +366,8 @@ export default function OrderTable() {
           </ModalDialog>
         </Modal>
       </Sheet>
+
+      {/* Tablet and Up Search and Filters */}
       <Box
         className="SearchAndFilters-tabletUp"
         sx={{
@@ -379,6 +387,8 @@ export default function OrderTable() {
         </FormControl>
         {renderFilters()}
       </Box>
+
+      {/* Order Table */}
       <Sheet
         className="OrderTableContainer"
         variant="outlined"
@@ -403,6 +413,7 @@ export default function OrderTable() {
             '--TableCell-paddingX': '8px',
           }}
         >
+
           <thead>
             <tr>
               <th style={{ width: 48, textAlign: 'center', padding: '12px 6px' }}>
@@ -451,7 +462,7 @@ export default function OrderTable() {
             </tr>
           </thead>
           <tbody>
-            {stableSort(rows, getComparator(order, 'id')).map((row) => (
+            {stableSort(filteredRows, getComparator(order, 'id')).map((row) => (
               <tr key={row.id}>
                 <td style={{ textAlign: 'center', width: 120 }}>
                   <Checkbox
@@ -508,7 +519,7 @@ export default function OrderTable() {
                 </td>
                 <td>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <Link level="body-xs" component="button">
+                    <Link  component={RouterLink} to="/event" level="body-xs">
                       Plus d'infos
                     </Link>
                     <RowMenu />

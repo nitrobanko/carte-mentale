@@ -2,10 +2,17 @@ import React from 'react';
 import { Box, Typography, Card, CardContent, Button, ImageList, ImageListItem, Avatar, Grid } from '@mui/material';
 import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const PageEvent: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleRetour = () => {
+    navigate('/gestion-event');
+  };
+
   const eventDetails = {
     title: 'Événement Caritatif',
     subtitle: 'Aidez-nous à rendre le monde meilleur',
@@ -64,10 +71,10 @@ const PageEvent: React.FC = () => {
         padding: 4,
       }}>
         <Box sx={{ width: '100%', maxWidth: 1200, bgcolor: '#fff', boxShadow: 3, borderRadius: 3, p: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Button variant="contained" color='success' >Retour</Button>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+            <Button variant="contained" color='success' onClick={handleRetour}>Retour</Button>
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <Button variant="contained" color="error">Archiver</Button>
+            <Button variant="contained" color="error">Archiver</Button>
               <Button variant="contained" color="success">Éditer</Button>
             </Box>
           </Box>
@@ -161,8 +168,12 @@ const PageEvent: React.FC = () => {
               <Grid container spacing={2}>
                 {prescripteurs.map((prescripteur, index) => (
                   <Grid item xs={4} key={index}>
-                    <Avatar alt={prescripteur.name} src={prescripteur.avatarUrl} variant="square" sx={{ width: 70, height: 70, borderRadius: '8px', mt: 1, boxShadow:3 }} />
-                    <Typography variant="body2" align="center" sx={{ mt: 1 }}>{prescripteur.name}</Typography>
+                    <Avatar
+                      alt={prescripteur.name}
+                      src={prescripteur.avatarUrl}
+                      sx={{ width: 48, height: 48, borderRadius: 1, boxShadow: 3 }}
+                    />
+                    <Typography variant="body2" align="center">{prescripteur.name}</Typography>
                   </Grid>
                 ))}
               </Grid>

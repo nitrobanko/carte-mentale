@@ -45,8 +45,8 @@ const GestionEvenement = () => {
             backgroundImage: 'linear-gradient(to right, #0070f3, #009999, #00bcd4)',
           }}
         >
-          <OrderTable/>
-        </Box>
+<OrderTable filterPending={true} />
+</Box>
       </Box>
     </CssVarsProvider>
   );

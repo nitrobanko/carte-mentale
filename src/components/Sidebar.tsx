@@ -143,7 +143,7 @@ export default function Sidebar() {
             <ListItemButton>
               <HomeRoundedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Accueil</Typography>
+                <Typography level="title-sm" component={RouterLink} to="/admin-page">Accueil</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

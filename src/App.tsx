@@ -23,6 +23,7 @@ import ModifPage from "./pages/ModifPage";
 import AdminPrescripteur from "./pages/AdminPrescripteur";
 import GestionTrad from "./pages/GestionTrad";
 import PageEvent from "./pages/PageEvent";
+import OrganismePanel from "./pages/OrganismePanel";
 
 function Copyright() {
   return (
@@ -57,6 +58,7 @@ function App() {
       <Route path="modifier-pages" element={<ModifPage />} />
       <Route path="trad" element={<GestionTrad />} />
       <Route path="event" element={<PageEvent />} />
+      <Route path="admin-page" element={<OrganismePanel />} />
 
 
     </Routes>
