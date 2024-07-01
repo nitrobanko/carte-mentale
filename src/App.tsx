@@ -24,6 +24,7 @@ import AdminPrescripteur from "./pages/AdminPrescripteur";
 import GestionTrad from "./pages/GestionTrad";
 import PageEvent from "./pages/PageEvent";
 import OrganismePanel from "./pages/OrganismePanel";
+import AjouterMembre from "./pages/AjouterMembre";
 
 function Copyright() {
   return (
@@ -59,6 +60,7 @@ function App() {
       <Route path="trad" element={<GestionTrad />} />
       <Route path="event" element={<PageEvent />} />
       <Route path="admin-page" element={<OrganismePanel />} />
+      <Route path="ajout-event" element={<AjouterMembre />} />
 
 
     </Routes>
