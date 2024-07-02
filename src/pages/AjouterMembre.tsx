@@ -9,10 +9,12 @@ import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
-import Grid from '@mui/joy/Grid'; // Assurez-vous d'importer Grid depuis MUI
+import Grid from '@mui/material/Grid';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import { TextareaAutosize } from '@mui/material';
+import { DatePicker } from '@nextui-org/react'; // Import du DatePicker
+import { parseDate } from "@internationalized/date";
 
 const AjouterMembre = () => {
   const [titre, setTitre] = React.useState('');
@@ -23,6 +25,8 @@ const AjouterMembre = () => {
   const [codePostal, setCodePostal] = React.useState('');
   const [ville, setVille] = React.useState('');
   const [lienUrl, setLienUrl] = React.useState('');
+  const [startDate, setStartDate] = React.useState<any>(null); // Utilisation d'un type générique pour startDate
+  const [endDate, setEndDate] = React.useState<any>(null); // Utilisation d'un type générique pour endDate
 
   const handleTitreChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitre(event.target.value);
@@ -65,8 +69,23 @@ const AjouterMembre = () => {
     setLienUrl(event.target.value);
   };
 
+  const handleStartDateChange = (date: any) => { // Utilisation d'un type générique pour date
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date: any) => { // Utilisation d'un type générique pour date
+    setEndDate(date);
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    // Validation personnalisée pour les dates
+    if (!startDate || !endDate) {
+      alert('Veuillez sélectionner une date de début et une date de fin.');
+      return;
+    }
+
     const motsClesArray = motsCles.split(',').map(mot => mot.trim());
     console.log('Titre:', titre);
     console.log('Mots Clés:', motsClesArray);
@@ -75,6 +94,8 @@ const AjouterMembre = () => {
     console.log('Code Postal:', codePostal);
     console.log('Ville:', ville);
     console.log('Lien URL:', lienUrl);
+    console.log('Date de début:', startDate);
+    console.log('Date de fin:', endDate);
     if (images.length > 0) {
       console.log('Images:');
       images.forEach((image, index) => {
@@ -141,55 +162,48 @@ const AjouterMembre = () => {
                     required
                   />
                 </FormControl>
-                <Grid container spacing={2}>
-                  <Grid >
-                    <FormControl>
-                      <FormLabel>Description</FormLabel>
-                      <TextareaAutosize
-                        value={description}
-                        onChange={handleDescriptionChange}
-                        placeholder="Entrez la description de l'événement"
-                        minRows={3}
-                        required
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid >
-                    <FormControl>
-                      <FormLabel>Images</FormLabel>
-                      <input
-                        type="file"
-                        onChange={handleImagesChange}
-                        multiple
-                      />
-                    </FormControl>
-                    {images.length > 0 && (
-                      <Box sx={{ mt: 2 }}>
-                        <Typography >Aperçu des images sélectionnées :</Typography>
-                        <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
-                          {images.map((image, index) => (
-                            <Box key={index} sx={{ position: 'relative' }}>
-                              <img
-                                src={URL.createObjectURL(image)}
-                                alt={`Image ${index + 1}`}
-                                style={{ maxWidth: 150, maxHeight: 150, objectFit: 'cover' }}
-                              />
-                              <Button
-                                
-                                sx={{ position: 'absolute', top: 0, right: 0 }}
-                                onClick={() => handleImageRemove(index)}
-                              >
-                                Supprimer
-                              </Button>
-                            </Box>
-                          ))}
-                        </Box>
+                <FormControl>
+                  <FormLabel>Description</FormLabel>
+                  <TextareaAutosize
+                    value={description}
+                    onChange={handleDescriptionChange}
+                    placeholder="Entrez la description de l'événement"
+                    minRows={3}
+                    required
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Images</FormLabel>
+                  <input
+                    type="file"
+                    onChange={handleImagesChange}
+                    multiple
+                  />
+                  {images.length > 0 && (
+                    <Box sx={{ mt: 2 }}>
+                      <Typography>Aperçu des images sélectionnées :</Typography>
+                      <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+                        {images.map((image, index) => (
+                          <Box key={index} sx={{ position: 'relative' }}>
+                            <img
+                              src={URL.createObjectURL(image)}
+                              alt={`Image ${index + 1}`}
+                              style={{ maxWidth: 150, maxHeight: 150, objectFit: 'cover' }}
+                            />
+                            <Button
+                              sx={{ position: 'absolute', top: 0, right: 0 }}
+                              onClick={() => handleImageRemove(index)}
+                            >
+                              Supprimer
+                            </Button>
+                          </Box>
+                        ))}
                       </Box>
-                    )}
-                  </Grid>
-                </Grid>
+                    </Box>
+                  )}
+                </FormControl>
                 <Grid container spacing={2}>
-                  <Grid >
+                  <Grid item xs={12} md={6}>
                     <FormControl>
                       <FormLabel>Adresse</FormLabel>
                       <Input
@@ -199,7 +213,7 @@ const AjouterMembre = () => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid >
+                  <Grid item xs={12} md={6}>
                     <FormControl>
                       <FormLabel>Code Postal</FormLabel>
                       <Input
@@ -209,7 +223,7 @@ const AjouterMembre = () => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid >
+                  <Grid item xs={12} md={6}>
                     <FormControl>
                       <FormLabel>Ville</FormLabel>
                       <Input
@@ -219,7 +233,7 @@ const AjouterMembre = () => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid >
+                  <Grid item xs={12} md={6}>
                     <FormControl>
                       <FormLabel>URL</FormLabel>
                       <Input
@@ -230,6 +244,29 @@ const AjouterMembre = () => {
                     </FormControl>
                   </Grid>
                 </Grid>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <FormControl>
+                      <FormLabel>Date de début</FormLabel>
+                      <DatePicker
+                        label="Sélectionnez la date de début"
+                        value={startDate}
+                        onChange={handleStartDateChange}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <FormControl>
+                      <FormLabel>Date de fin</FormLabel>
+                      <DatePicker
+                        label="Sélectionnez la date de fin"
+                        value={endDate}
+                        onChange={handleEndDateChange}
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                
                 <Button type="submit" color="primary" sx={{ mt: 2 }}>
                   Ajouter
                 </Button>

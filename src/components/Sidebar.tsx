@@ -206,7 +206,7 @@ export default function Sidebar() {
                   <ListItemButton component={RouterLink} to="/list-event">Evénements archivés</ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Ajouter un événement</ListItemButton>
+                  <ListItemButton component={RouterLink} to="/ajout-event">Ajouter un événement</ListItemButton>
                 </ListItem>
                 <ListItem>
                   <ListItemButton>
